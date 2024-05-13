@@ -26,38 +26,36 @@ class PetController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {
-        try {
+{
+  try {
+    $validatedData = $request->validate([
+      'title' => 'required',
+      'animal' => 'required',
+      'description' => 'required',
+      'found' => 'required',
+      'location' => 'required',
+      'when' => 'required',
+      'img' => 'required'
+    ],
+    [
+      'title.required' => 'title is required',
+      'animal.required' => 'animal is required',
+      'description.required' => 'description is required',
+      'found.required' => 'found is required',
+      'location.required' => 'location is required',
+      'when.required' => 'when is required'
+    ]);
 
-            $request->validate([
-                'title' => 'required',
-                'animal' => 'required',
-                'description' => 'required',
-                'found' => 'required',
-                'location' => 'required',
-                'when' => 'required',
-            ],
-            [
-                'title.required' =>'title is required',
-                'animal.required' =>'animal is required',
-                'description.required' =>'description is required',
-                'found.required' =>'found is required',
-                'location.required' =>'location is required',
-                'when.required' =>'when is required',
-            ]);
 
-            $pet = Pet::create($request->all());
+    $pet = Pet::create($validatedData);
 
-        } catch (\Exception $e) {
-            return response()->json(['success' => 'false' , 'msg' => $e],400);
-        }
+    return response()->json(['success' => true, 'msg' => 'Pet created successfully', 'pet' => $pet]);
+  } catch (\Exception $e) {
+    return response()->json(['success' => false, 'msg' => $e->getMessage()], 400);
+  }
+}
 
-        return response()->json(['success' => 'true' , 'msg' => 'pet created succesfuly', 'pet' => $pet]);
-    }
 
     /**
      * Display the specified resource.
@@ -100,6 +98,7 @@ class PetController extends Controller
                 $pet->found = $request->found;
                 $pet->location = $request->location;
                 $pet->when = $request->when;
+                $pet->img = $request->img;
 
                 $pet->save();
 

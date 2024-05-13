@@ -18,8 +18,9 @@ return new class extends Migration
             $table->text('description');
             $table->string('found');
             $table->string('location')->nullable();
-            $table->string('image')->nullable();
             $table->date('when')->nullable();
+            $table->binary('image')->nullable();
+            $table->mediumText('img')->nullable();
             $table->timestamps();
         });
     }

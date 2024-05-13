@@ -13,6 +13,7 @@ class Pet extends Model
         'description',
         'found',
         'location',
-        'when'
+        'when',
+        'img'
     ];
 }
