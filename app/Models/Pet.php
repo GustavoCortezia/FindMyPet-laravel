@@ -14,6 +14,8 @@ class Pet extends Model
         'found',
         'location',
         'when',
-        'img'
+        'img',
+        'email',
+        'phone'
     ];
 }

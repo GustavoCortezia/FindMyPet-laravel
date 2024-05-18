@@ -36,7 +36,9 @@ class PetController extends Controller
       'found' => 'required',
       'location' => 'required',
       'when' => 'required',
-      'img' => 'required'
+      'img' => 'required',
+      'email' => 'required',
+      'phone' => 'required'
     ],
     [
       'title.required' => 'title is required',
@@ -44,13 +46,15 @@ class PetController extends Controller
       'description.required' => 'description is required',
       'found.required' => 'found is required',
       'location.required' => 'location is required',
-      'when.required' => 'when is required'
+      'when.required' => 'when is required',
+      'email.required' => 'email is required',
+      'phone.required' => 'phone is required'
     ]);
 
 
     $pet = Pet::create($validatedData);
 
-    return response()->json(['success' => true, 'msg' => 'Pet created successfully', 'pet' => $pet]);
+    return response()->json(['success' => true, 'msg' => 'Pet created successfully', 'pet' => $pet], 201);
   } catch (\Exception $e) {
     return response()->json(['success' => false, 'msg' => $e->getMessage()], 400);
   }
@@ -99,6 +103,8 @@ class PetController extends Controller
                 $pet->location = $request->location;
                 $pet->when = $request->when;
                 $pet->img = $request->img;
+                $pet->email = $request->email;
+                $pet->phone = $request->phone;
 
                 $pet->save();
 
